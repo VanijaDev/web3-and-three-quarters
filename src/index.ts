@@ -1,1 +1,1 @@
-export { generateWallet } from "./wallet_manager/walletmanager";
+export { generateWallet } from "./wallet_manager/walletManager";
