@@ -1,0 +1,1 @@
+export { generateWallet } from "./wallet_manager/walletmanager";
