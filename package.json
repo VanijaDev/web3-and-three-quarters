@@ -1,0 +1,35 @@
+{
+  "name": "web2-and-three-quarters",
+  "version": "0.1.0",
+  "description": "web3 interaction in web2 manner.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --timeout 30000 -r ts-node/register 'test/**/*.test.ts'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VanijaDev/web2-and-three-quarters.git"
+  },
+  "keywords": [
+    "web3",
+    "blockchain",
+    "interaction"
+  ],
+  "author": "Ivan Solomichev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VanijaDev/web2-and-three-quarters/issues"
+  },
+  "homepage": "https://github.com/VanijaDev/web2-and-three-quarters#readme",
+  "dependencies": {
+    "ethers": "6.6.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.5",
+    "@types/mocha": "^10.0.1",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.3"
+  }
+}
