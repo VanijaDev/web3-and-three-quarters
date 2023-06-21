@@ -1,5 +1,5 @@
 import { HDNodeWallet } from "ethers";
-import { generateWallet } from "../src/wallet_manager/walletManager";
+import { generateWallet } from "../src/wallet_manager/wallet";
 import { expect } from "chai";
 
 describe("Walletmanager", () => {
