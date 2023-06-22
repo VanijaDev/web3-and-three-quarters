@@ -6,7 +6,7 @@ import { minPassphraseLength } from "./constants";
  * @returns { boolean } Whether strong enough.
  */
 function isPassphraseValid(_passphrase: string): boolean {
-  const regex = new RegExp(`(^(?=.{${minPassphraseLength},}$))(^([0-9A-Z][0-9a-zA-z]+)([A-Z][0-9a-zA-z]+)([A-Z][0-9a-zA-z]+)([A-Z][0-9a-zA-z]+))$`);
+  const regex = new RegExp(`^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@#$%^&*()_=+<>-]).{${minPassphraseLength},}$`);
   return regex.test(_passphrase);
 }
 
