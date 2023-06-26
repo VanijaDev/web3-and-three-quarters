@@ -1,6 +1,5 @@
-import { HDNodeWallet } from "ethers";
-import { generateWallet, encryptWallet, dencryptWallet } from "../src/wallet_manager/wallet";
-import { expect, should } from "chai";
+import { HDNodeWallet, ethers, recoverAddress } from "ethers";
+import { generateWallet, encryptWallet, dencryptWallet, signMessage } from "../src/wallet_manager/wallet";
 import { errorMsg } from "../src/utils/constants";
 
 describe("Walletmanager", () => {
@@ -11,7 +10,6 @@ describe("Walletmanager", () => {
   const encryptionPassphrase = "HelloWorldFrom_me_1987@";
 
   let wallet: HDNodeWallet;
-  let walletEncrypted: string;
 
   before("generate new wallet", async () => {
     wallet = await generateWallet();
@@ -60,11 +58,16 @@ describe("Walletmanager", () => {
       const res = await encryptWallet(wallet, encryptionPassphrase);
       expect(res).to.be.a('string');
       expect(res).to.not.be.empty;
-      walletEncrypted = res;
     });
   });
 
   describe("dencryptWallet", () => {
+    let walletEncrypted: string;
+
+    before("generate new wallet", async () => {
+      walletEncrypted = await encryptWallet(wallet, encryptionPassphrase);;
+    });
+
     it("should fail if encrypted wallet string is empty", async () => {
       await expect(dencryptWallet("", encryptionPassphrase)).to.be.rejectedWith(errorMsg.emptyEncryptedWallet);
     });
@@ -95,6 +98,21 @@ describe("Walletmanager", () => {
       const walletDecrypted = await dencryptWallet(walletEncrypted, encryptionPassphrase);
 
       expect(walletDecrypted).to.deep.equal(wallet);
+    });
+  });
+
+  describe("signMessage", () => {
+    it("should fail if _message.length == 0", async () => {
+      await expect(signMessage(wallet, "")).to.be.rejectedWith(errorMsg.emptyMessageToSign);
+    });
+
+    it("should fail if wallet is wrong", async () => {
+      const corruptedWallet = {
+        provider: null,
+        address: '0x96802b8Bfb20D009122631A0DF57F7A61043fA76',
+        publicKey: '0x024e0fa0366a9b6028664a90f938e3f181fdb5eb619882a788988cf062b827c6fa'
+      };
+      await expect(signMessage(corruptedWallet as HDNodeWallet, "Hello World")).to.be.rejectedWith(errorMsg.failedToSignMessagePrefix);
     });
   });
 });

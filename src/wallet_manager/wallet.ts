@@ -55,10 +55,9 @@ async function signMessage(_wallet: HDNodeWallet, _message: string) {
   }
 
   try {
-    const sig = _wallet.signMessage(_message);
-    return sig;
+    return await _wallet.signMessage(_message);
   } catch (error) {
-    throw new Error();
+    throw new Error(errorMsg.failedToSignMessagePrefix + error);
   }
 }
 
