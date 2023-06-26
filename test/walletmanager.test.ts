@@ -1,7 +1,7 @@
 import { HDNodeWallet } from "ethers";
 import { generateWallet, encryptWallet, dencryptWallet } from "../src/wallet_manager/wallet";
 import { expect, should } from "chai";
-import { errorEmpty, failedToDecrypt, invalidPassphraseDuringWalletGeneration } from "../src/utils/constants";
+import { errorMsg } from "../src/utils/constants";
 
 describe("Walletmanager", () => {
   const chai = require('chai');
@@ -37,23 +37,23 @@ describe("Walletmanager", () => {
 
   describe("encryptWallet", () => {
     it("should fail if encryption passphrase is empty", async () => {
-      await expect(encryptWallet(wallet, "")).to.be.rejectedWith(invalidPassphraseDuringWalletGeneration);
+      await expect(encryptWallet(wallet, "")).to.be.rejectedWith(errorMsg.invalidPassphraseDuringWalletGeneration);
     });
 
     it("should fail if encryption passphrase is < 15 chars", async () => {
-      await expect(encryptWallet(wallet, "HelloWorld1@")).to.be.rejectedWith(invalidPassphraseDuringWalletGeneration);
+      await expect(encryptWallet(wallet, "HelloWorld1@")).to.be.rejectedWith(errorMsg.invalidPassphraseDuringWalletGeneration);
     });
     
     it("should fail if encryption passphrase doesn't contain at least 1 uppercase letter", async () => {
-      await expect(encryptWallet(wallet, "hello_world_from_me_1@")).to.be.rejectedWith(invalidPassphraseDuringWalletGeneration);
+      await expect(encryptWallet(wallet, "hello_world_from_me_1@")).to.be.rejectedWith(errorMsg.invalidPassphraseDuringWalletGeneration);
     });
     
     it("should fail if encryption passphrase doesn't contain at least 1 lowercase letters", async () => {
-      await expect(encryptWallet(wallet, "HELLOWORLDF1ROMME1")).to.be.rejectedWith(invalidPassphraseDuringWalletGeneration);
+      await expect(encryptWallet(wallet, "HELLOWORLDF1ROMME1")).to.be.rejectedWith(errorMsg.invalidPassphraseDuringWalletGeneration);
     });
     
     it("should fail if encryption passphrase doesn't contain at least 1 lspecial character", async () => {
-      await expect(encryptWallet(wallet, "HELLOWORLDF1ROMMe1")).to.be.rejectedWith(invalidPassphraseDuringWalletGeneration);
+      await expect(encryptWallet(wallet, "HELLOWORLDF1ROMMe1")).to.be.rejectedWith(errorMsg.invalidPassphraseDuringWalletGeneration);
     });
     
     it("should succeed by returning a string", async () => {
@@ -66,29 +66,29 @@ describe("Walletmanager", () => {
 
   describe("dencryptWallet", () => {
     it("should fail if encrypted wallet string is empty", async () => {
-      await expect(dencryptWallet("", encryptionPassphrase)).to.be.rejectedWith(errorEmpty.encryptedWallet);
+      await expect(dencryptWallet("", encryptionPassphrase)).to.be.rejectedWith(errorMsg.emptyEncryptedWallet);
     });
 
     it("should fail if passphrase used for encryption is empty", async () => {
-      await expect(dencryptWallet(walletEncrypted, "")).to.be.rejectedWith(errorEmpty.passphrase);
+      await expect(dencryptWallet(walletEncrypted, "")).to.be.rejectedWith(errorMsg.emptyPassphrase);
     });
 
     it("should fail if encrypted wallet is invalid, if wrong letters", async () => {
       const corruptedWalletEncrypted = walletEncrypted.replace("a", "_").replace("v", "!").replace("e", "@").replace("i", "#").replace("s", "$");
 
-      await expect(dencryptWallet(corruptedWalletEncrypted, encryptionPassphrase)).to.be.rejectedWith(failedToDecrypt);
+      await expect(dencryptWallet(corruptedWalletEncrypted, encryptionPassphrase)).to.be.rejectedWith(errorMsg.failedToDecrypt);
     });
 
     it("should fail if encrypted wallet is invalid, if corrupted \"mnemonic...\" field", async () => {
       const corruptedWalletEncrypted = walletEncrypted.replace("mnemonic", "");
 
-      await expect(dencryptWallet(corruptedWalletEncrypted, encryptionPassphrase)).to.be.rejectedWith(failedToDecrypt);
+      await expect(dencryptWallet(corruptedWalletEncrypted, encryptionPassphrase)).to.be.rejectedWith(errorMsg.failedToDecrypt);
     });
 
     it("should fail if passphrase used for encryption is invalid", async () => {
       const wrongPassphrase = encryptionPassphrase + "Wrong";
 
-      await expect(dencryptWallet(walletEncrypted, wrongPassphrase)).to.be.rejectedWith(failedToDecrypt);
+      await expect(dencryptWallet(walletEncrypted, wrongPassphrase)).to.be.rejectedWith(errorMsg.failedToDecrypt);
     });
 
     it("should return correct wallet", async () => {
