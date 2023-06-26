@@ -1,6 +1,7 @@
 import { Wallet, type HDNodeWallet } from 'ethers';
 import { isPassphraseValid } from '../utils/utils';
-import { errorEmpty, failedToDecrypt, invalidPassphraseDuringWalletGeneration } from '../utils/constants';
+import { errorMsg } from '../utils/constants';
+
 
 /**
  * @description Generates a wallet instance.
@@ -20,7 +21,7 @@ async function generateWallet(): Promise<HDNodeWallet> {
  */
 async function encryptWallet(_wallet: HDNodeWallet, _passphrase: string): Promise<string> {
   if (!isPassphraseValid(_passphrase)) {
-    throw new Error(invalidPassphraseDuringWalletGeneration);
+    throw new Error(errorMsg.invalidPassphraseDuringWalletGeneration);
   }
 
   return await _wallet.encrypt(_passphrase);
@@ -34,20 +35,29 @@ async function encryptWallet(_wallet: HDNodeWallet, _passphrase: string): Promis
  */
 async function dencryptWallet(_encryptedWallet: string, _passphrase: string): Promise<Wallet | HDNodeWallet> {
   if (_encryptedWallet.length == 0) {
-    throw new Error(errorEmpty.encryptedWallet);
+    throw new Error(errorMsg.emptyEncryptedWallet);
   }
 
   if (_passphrase.length == 0) {
-    throw new Error(errorEmpty.passphrase);
+    throw new Error(errorMsg.emptyPassphrase);
   }
 
   try {
     const decryptedWallet = await Wallet.fromEncryptedJson(_encryptedWallet, _passphrase);
     return decryptedWallet;
   } catch (error) {
-    throw new Error(failedToDecrypt);
+    console.error("dencryptWallet -> ", error);
+    throw new Error(errorMsg.failedToDecrypt);
   }
 }
+
+async function signMessage(_message: string) {
+  if (_message.length == 0) {
+    throw new Error(errorMsg.emptyEncryptedWallet);
+  }
+}
+
+// async function test_createTxTransferEth(_wei: string): 
 
 export {
   generateWallet,
