@@ -43,17 +43,22 @@ async function dencryptWallet(_encryptedWallet: string, _passphrase: string): Pr
   }
 
   try {
-    const decryptedWallet = await Wallet.fromEncryptedJson(_encryptedWallet, _passphrase);
-    return decryptedWallet;
+    return await Wallet.fromEncryptedJson(_encryptedWallet, _passphrase);
   } catch (error) {
-    console.error("dencryptWallet -> ", error);
-    throw new Error(errorMsg.failedToDecrypt);
+    throw new Error(errorMsg.failedToDecryptPrefix + error);
   }
 }
 
-async function signMessage(_message: string) {
+async function signMessage(_wallet: HDNodeWallet, _message: string) {
   if (_message.length == 0) {
-    throw new Error(errorMsg.emptyEncryptedWallet);
+    throw new Error(errorMsg.emptyMessageToSign);
+  }
+
+  try {
+    const sig = _wallet.signMessage(_message);
+    return sig;
+  } catch (error) {
+    throw new Error();
   }
 }
 
@@ -62,5 +67,6 @@ async function signMessage(_message: string) {
 export {
   generateWallet,
   encryptWallet,
-  dencryptWallet
+  dencryptWallet,
+  signMessage
 }

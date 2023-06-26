@@ -76,19 +76,19 @@ describe("Walletmanager", () => {
     it("should fail if encrypted wallet is invalid, if wrong letters", async () => {
       const corruptedWalletEncrypted = walletEncrypted.replace("a", "_").replace("v", "!").replace("e", "@").replace("i", "#").replace("s", "$");
 
-      await expect(dencryptWallet(corruptedWalletEncrypted, encryptionPassphrase)).to.be.rejectedWith(errorMsg.failedToDecrypt);
+      await expect(dencryptWallet(corruptedWalletEncrypted, encryptionPassphrase)).to.be.rejectedWith(errorMsg.failedToDecryptPrefix);
     });
 
     it("should fail if encrypted wallet is invalid, if corrupted \"mnemonic...\" field", async () => {
       const corruptedWalletEncrypted = walletEncrypted.replace("mnemonic", "");
 
-      await expect(dencryptWallet(corruptedWalletEncrypted, encryptionPassphrase)).to.be.rejectedWith(errorMsg.failedToDecrypt);
+      await expect(dencryptWallet(corruptedWalletEncrypted, encryptionPassphrase)).to.be.rejectedWith(errorMsg.failedToDecryptPrefix);
     });
 
     it("should fail if passphrase used for encryption is invalid", async () => {
       const wrongPassphrase = encryptionPassphrase + "Wrong";
 
-      await expect(dencryptWallet(walletEncrypted, wrongPassphrase)).to.be.rejectedWith(errorMsg.failedToDecrypt);
+      await expect(dencryptWallet(walletEncrypted, wrongPassphrase)).to.be.rejectedWith(errorMsg.failedToDecryptPrefix);
     });
 
     it("should return correct wallet", async () => {
