@@ -49,7 +49,13 @@ async function dencryptWallet(_encryptedWallet: string, _passphrase: string): Pr
   }
 }
 
-async function signMessage(_wallet: HDNodeWallet, _message: string) {
+/**
+ * @description Signs a message.
+ * @param { HDNodeWallet } _wallet Wallet to be used for signing.
+ * @param { string } _message Message to be signed.
+ * @returns { Promis<string> } Signature.
+ */
+async function signMessage(_wallet: HDNodeWallet, _message: string): Promise<string> {
   if (_message.length == 0) {
     throw new Error(errorMsg.emptyMessageToSign);
   }
@@ -59,6 +65,18 @@ async function signMessage(_wallet: HDNodeWallet, _message: string) {
   } catch (error) {
     throw new Error(errorMsg.failedToSignMessagePrefix + error);
   }
+}
+
+/**
+ * @description Gets message signer.
+ * @param { string } _message Message that was signed.
+ * @param { string } _signature Signature as a result of _message signature.
+ * @returns { Promise<string> } Recovered signer address.
+ */
+async function getMessageSigner(_message: string, _signature: string): Promise<string> {
+  const ethers = await import('ethers');
+
+  return await ethers.verifyMessage(_message, _signature);
 }
 
 // async function test_createTxTransferEth(_wei: string): 
