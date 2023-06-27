@@ -1,4 +1,4 @@
-import { HDNodeWallet, ethers, recoverAddress } from "ethers";
+import { HDNodeWallet, ethers } from "ethers";
 import { generateWallet, encryptWallet, dencryptWallet, signMessage } from "../src/wallet_manager/wallet";
 import { errorMsg } from "../src/utils/constants";
 
@@ -113,6 +113,23 @@ describe("Walletmanager", () => {
         publicKey: '0x024e0fa0366a9b6028664a90f938e3f181fdb5eb619882a788988cf062b827c6fa'
       };
       await expect(signMessage(corruptedWallet as HDNodeWallet, "Hello World")).to.be.rejectedWith(errorMsg.failedToSignMessagePrefix);
+    });
+
+    it("should return a signature", async () => {
+      const sig = await signMessage(wallet, "Hello World");
+
+      await expect(sig).to.be.a("string");
+      await expect(sig).to.have.lengthOf.above(0);
+    });
+
+    it.only("should verify correct signer", async () => {
+      const message = "Hello World";
+      const signature = await signMessage(wallet, message);
+      const signer = await wallet.getAddress();
+
+      const recoveredSigner = await ethers.verifyMessage(message, signature);
+
+      expect(recoveredSigner).to.be.equal(signer);
     });
   });
 });

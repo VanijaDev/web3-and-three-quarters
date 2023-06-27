@@ -85,5 +85,6 @@ export {
   generateWallet,
   encryptWallet,
   dencryptWallet,
-  signMessage
+  signMessage,
+  getMessageSigner
 }
