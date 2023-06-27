@@ -74,6 +74,14 @@ async function signMessage(_wallet: HDNodeWallet, _message: string): Promise<str
  * @returns { Promise<string> } Recovered signer address.
  */
 async function getMessageSigner(_message: string, _signature: string): Promise<string> {
+  if (_message.length == 0) {
+    throw new Error(errorMsg.emptyMessageInGetMessageSigner);
+  }
+  
+  if (_signature.length == 0) {
+    throw new Error(errorMsg.emptySignatureInGetMessageSigner);
+  }
+
   const ethers = await import('ethers');
 
   return await ethers.verifyMessage(_message, _signature);

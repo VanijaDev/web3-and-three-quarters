@@ -1,5 +1,5 @@
 import { HDNodeWallet, ethers } from "ethers";
-import { generateWallet, encryptWallet, dencryptWallet, signMessage } from "../src/wallet_manager/wallet";
+import { generateWallet, encryptWallet, dencryptWallet, signMessage, getMessageSigner } from "../src/wallet_manager/wallet";
 import { errorMsg } from "../src/utils/constants";
 
 describe("Walletmanager", () => {
@@ -65,7 +65,7 @@ describe("Walletmanager", () => {
     let walletEncrypted: string;
 
     before("generate new wallet", async () => {
-      walletEncrypted = await encryptWallet(wallet, encryptionPassphrase);;
+      walletEncrypted = await encryptWallet(wallet, encryptionPassphrase);
     });
 
     it("should fail if encrypted wallet string is empty", async () => {
@@ -122,7 +122,7 @@ describe("Walletmanager", () => {
       await expect(sig).to.have.lengthOf.above(0);
     });
 
-    it.only("should verify correct signer", async () => {
+    it("should verify correct signer", async () => {
       const message = "Hello World";
       const signature = await signMessage(wallet, message);
       const signer = await wallet.getAddress();
@@ -132,4 +132,30 @@ describe("Walletmanager", () => {
       expect(recoveredSigner).to.be.equal(signer);
     });
   });
+
+  describe("getMessageSigner", async () => {
+    const message = "Hello World";
+    let signature: string;
+    let signer: string;
+
+    before("generate new wallet", async () => {
+      signature = await signMessage(wallet, message);
+      signer = await wallet.getAddress();
+    });
+
+    
+    it("should fail if _message.length == 0", async () => {
+      await expect(getMessageSigner("", signature)).to.be.rejectedWith(errorMsg.emptyMessageInGetMessageSigner);
+    });
+
+    it("should fail if _message.length == 0", async () => {
+      await expect(getMessageSigner(message, "")).to.be.rejectedWith(errorMsg.emptySignatureInGetMessageSigner);
+    });
+
+    it("should return correct signer", async () => {
+      const recoveredSigner = await getMessageSigner(message, signature);
+
+      expect(recoveredSigner).to.be.equal(signer);
+    });
+  })
 });

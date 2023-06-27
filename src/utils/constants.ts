@@ -6,7 +6,9 @@ const errorMsg = {
   failedToSignMessagePrefix: "signMessage -> error: ",
   emptyEncryptedWallet: "Empty string for encrypted wallet.",
   emptyPassphrase: "Empty string for passphrase.",
-  emptyMessageToSign: "Empty message to sign."
+  emptyMessageToSign: "Empty message to sign.",
+  emptyMessageInGetMessageSigner: "Empty message to verify signer.",
+  emptySignatureInGetMessageSigner: "Empty signature to verify signer.",
 
 };
 
