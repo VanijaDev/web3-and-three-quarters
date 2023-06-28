@@ -9,6 +9,7 @@ const errorMsg = {
   emptyMessageToSign: "Empty message to sign.",
   emptyMessageInGetMessageSigner: "Empty message to verify signer.",
   emptySignatureInGetMessageSigner: "Empty signature to verify signer.",
+  emptySignerInIsMessageSigner: "Empty signer provided to verify message signer.",
 
 };
 

@@ -95,6 +95,10 @@ async function getMessageSigner(_message: string, _signature: string): Promise<s
  * @returns { Promise<boolean> } Whether provided signer is the signer of the message.
  */
 async function isMessageSigner(_message: string, _signature: string, _signer: string): Promise<boolean> {
+  if (_signer.length == 0) {
+    throw new Error(errorMsg.emptySignerInIsMessageSigner);
+  }
+
   const actualSigner = await getMessageSigner(_message, _signature);
   return actualSigner.localeCompare(_signer, undefined, { sensitivity: 'accent' }) == 0;
 }

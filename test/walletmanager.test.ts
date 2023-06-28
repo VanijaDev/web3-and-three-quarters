@@ -178,6 +178,10 @@ describe("Walletmanager", () => {
       await expect(isMessageSigner(message, "", signer)).to.be.rejectedWith(errorMsg.emptySignatureInGetMessageSigner);
     });
 
+    it("should fail if _signer.length == 0", async () => {
+      await expect(isMessageSigner(message, signature, "")).to.be.rejectedWith(errorMsg.emptySignerInIsMessageSigner);
+    });
+
     it("should return false for the provided incorrect signer", async () => {
       const res = await isMessageSigner(message, signature, signer + "1");
 
