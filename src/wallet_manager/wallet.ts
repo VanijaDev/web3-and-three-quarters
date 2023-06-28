@@ -87,6 +87,18 @@ async function getMessageSigner(_message: string, _signature: string): Promise<s
   return await ethers.verifyMessage(_message, _signature);
 }
 
+/**
+ * @description Checks whether provided address is a signer of provided message.
+ * @param { string } _message Massage string.
+ * @param { string } _signature Signature string.
+ * @param { string } _signer Signer address to be verified.
+ * @returns { Promise<boolean> } Whether provided signer is the signer of the message.
+ */
+async function isMessageSigner(_message: string, _signature: string, _signer: string): Promise<boolean> {
+  const actualSigner = await getMessageSigner(_message, _signature);
+  return actualSigner.localeCompare(_signer, undefined, { sensitivity: 'accent' }) == 0;
+}
+
 // async function test_createTxTransferEth(_wei: string): 
 
 export {
@@ -94,5 +106,6 @@ export {
   encryptWallet,
   dencryptWallet,
   signMessage,
-  getMessageSigner
+  getMessageSigner,
+  isMessageSigner
 }

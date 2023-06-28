@@ -1,5 +1,5 @@
 import { HDNodeWallet, ethers } from "ethers";
-import { generateWallet, encryptWallet, dencryptWallet, signMessage, getMessageSigner } from "../src/wallet_manager/wallet";
+import { generateWallet, encryptWallet, dencryptWallet, signMessage, getMessageSigner, isMessageSigner } from "../src/wallet_manager/wallet";
 import { errorMsg } from "../src/utils/constants";
 
 describe("Walletmanager", () => {
@@ -157,5 +157,37 @@ describe("Walletmanager", () => {
 
       expect(recoveredSigner).to.be.equal(signer);
     });
-  })
+  });
+
+  describe("isMessageSigner", async () => {
+    const message = "Hello World";
+    let signature: string;
+    let signer: string;
+
+    before("generate new wallet", async () => {
+      signature = await signMessage(wallet, message);
+      signer = await wallet.getAddress();
+    });
+
+    
+    it("should fail if _message.length == 0", async () => {
+      await expect(isMessageSigner("", signature, signer)).to.be.rejectedWith(errorMsg.emptyMessageInGetMessageSigner);
+    });
+
+    it("should fail if _message.length == 0", async () => {
+      await expect(isMessageSigner(message, "", signer)).to.be.rejectedWith(errorMsg.emptySignatureInGetMessageSigner);
+    });
+
+    it("should return false for the provided incorrect signer", async () => {
+      const res = await isMessageSigner(message, signature, signer + "1");
+
+      expect(res).to.be.false;
+    });
+
+    it("should return true for correct signer", async () => {
+      const res = await isMessageSigner(message, signature, signer);
+
+      expect(res).to.be.true;
+    });
+  });
 });
