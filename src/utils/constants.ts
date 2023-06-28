@@ -10,7 +10,7 @@ const errorMsg = {
   emptyMessageInGetMessageSigner: "Empty message to verify signer.",
   emptySignatureInGetMessageSigner: "Empty signature to verify signer.",
   emptySignerInIsMessageSigner: "Empty signer provided to verify message signer.",
-
+  emptyTransactionStirngInSignTransaction: "Empty signer provided to verify message signer.",
 };
 
 export { minPassphraseLength, errorMsg };

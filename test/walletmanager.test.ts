@@ -1,5 +1,5 @@
-import { HDNodeWallet, ethers } from "ethers";
-import { generateWallet, encryptWallet, dencryptWallet, signMessage, getMessageSigner, isMessageSigner } from "../src/wallet_manager/wallet";
+import { HDNodeWallet, TransactionRequest, ethers } from "ethers";
+import { generateWallet, encryptWallet, dencryptWallet, signMessage, getMessageSigner, isMessageSigner, signTransaction } from "../src/wallet_manager/wallet";
 import { errorMsg } from "../src/utils/constants";
 
 describe("Walletmanager", () => {
@@ -192,6 +192,34 @@ describe("Walletmanager", () => {
       const res = await isMessageSigner(message, signature, signer);
 
       expect(res).to.be.true;
+    });
+  });
+
+  describe("signTransaction", async () => {
+    const message = "Hello World";
+    let signature: string;
+    let signer: string;
+    let tx: TransactionRequest;
+
+    before("generate new wallet and tx", async () => {
+      signature = await signMessage(wallet, message);
+      signer = await wallet.getAddress();
+      tx = {
+        to: "0xa238b6008Bc2FBd9E386A5d4784511980cE504Cd",
+        value: ethers.parseEther("0.001"),
+        gasLimit: "21000",
+        maxPriorityFeePerGas: ethers.parseUnits("5", "gwei"),
+        maxFeePerGas: ethers.parseUnits("20", "gwei"),
+        nonce: 0,
+        type: 2,
+        chainId: 5, // Corresponds to ETH_GOERLI
+      };
+    });
+
+    it("should sign the transaction", async () => {
+      const res = await signTransaction(wallet, tx);
+      expect(res).satisfy(addr => addr.startsWith('0x'), "wrong signature prefix");
+      expect(res).to.have.lengthOf.above(2, "wrong length");
     });
   });
 });

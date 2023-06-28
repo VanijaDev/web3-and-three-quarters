@@ -1,4 +1,4 @@
-import { Wallet, type HDNodeWallet } from 'ethers';
+import { Wallet, type HDNodeWallet, type TransactionRequest } from 'ethers';
 import { isPassphraseValid } from '../utils/utils';
 import { errorMsg } from '../utils/constants';
 
@@ -103,6 +103,16 @@ async function isMessageSigner(_message: string, _signature: string, _signer: st
   return actualSigner.localeCompare(_signer, undefined, { sensitivity: 'accent' }) == 0;
 }
 
+/**
+ * @description Signs the provided transaction.
+ * @param { HDNodeWallet } _wallet Wallet to be used for signing.
+ * @param { TransactionRequest } _tx Transaction to be signed.
+ * @returns { Promise<stirng> } Signed transaction.
+ */
+async function signTransaction(_wallet: HDNodeWallet, _tx: TransactionRequest): Promise<string> {
+  return await _wallet.signTransaction(_tx);
+}
+
 // async function test_createTxTransferEth(_wei: string): 
 
 export {
@@ -111,5 +121,6 @@ export {
   dencryptWallet,
   signMessage,
   getMessageSigner,
-  isMessageSigner
+  isMessageSigner,
+  signTransaction
 }
