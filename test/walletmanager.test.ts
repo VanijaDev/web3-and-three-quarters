@@ -196,14 +196,9 @@ describe("Walletmanager", () => {
   });
 
   describe("signTransaction", async () => {
-    const message = "Hello World";
-    let signature: string;
-    let signer: string;
     let tx: TransactionRequest;
 
     before("generate new wallet and tx", async () => {
-      signature = await signMessage(wallet, message);
-      signer = await wallet.getAddress();
       tx = {
         to: "0xa238b6008Bc2FBd9E386A5d4784511980cE504Cd",
         value: ethers.parseEther("0.001"),
