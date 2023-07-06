@@ -4,6 +4,12 @@
   "description": "web3 interaction in web2 manner.",
   "main": "dist/cjs/index.js",
   "scripts": {
+    "build": "rm -rf dist/ && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
+    "start": "tsc && node dist/esm/index.js",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts",
     "test": "mocha --timeout 30000 -r ts-node/register 'test/**/*.test.ts'"
   },
   "repository": {
