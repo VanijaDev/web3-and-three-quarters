@@ -113,8 +113,6 @@ async function signTransaction(_wallet: HDNodeWallet, _tx: TransactionRequest): 
   return await _wallet.signTransaction(_tx);
 }
 
-// async function test_createTxTransferEth(_wei: string): 
-
 export {
   generateWallet,
   encryptWallet,
