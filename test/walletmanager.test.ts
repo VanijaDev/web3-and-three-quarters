@@ -1,5 +1,5 @@
 import { HDNodeWallet, TransactionRequest, ethers } from "ethers";
-import { generateWallet, encryptWallet, decryptWallet, signMessage, getMessageSigner, isMessageSigner, signTransaction } from "../index";
+import { generateWallet, encryptWallet, decryptWallet, signMessage, getMessageSigner, isMessageSigner, signTransaction } from "../src/index";
 import { errorMsg } from "../src/utils/constants";
 
 describe("Walletmanager", () => {
