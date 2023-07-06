@@ -33,7 +33,7 @@ async function encryptWallet(_wallet: HDNodeWallet, _passphrase: string): Promis
  * @param { string } _passphrase Passphrase used for encryption.
  * @returns { Promise<HDNodeWallet> } Decrypted wallet.
  */
-async function dencryptWallet(_encryptedWallet: string, _passphrase: string): Promise<Wallet | HDNodeWallet> {
+async function decryptWallet(_encryptedWallet: string, _passphrase: string): Promise<Wallet | HDNodeWallet> {
   if (_encryptedWallet.length == 0) {
     throw new Error(errorMsg.emptyEncryptedWallet);
   }
@@ -116,7 +116,7 @@ async function signTransaction(_wallet: HDNodeWallet, _tx: TransactionRequest): 
 export {
   generateWallet,
   encryptWallet,
-  dencryptWallet,
+  decryptWallet,
   signMessage,
   getMessageSigner,
   isMessageSigner,

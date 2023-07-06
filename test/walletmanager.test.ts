@@ -1,5 +1,5 @@
 import { HDNodeWallet, TransactionRequest, ethers } from "ethers";
-import { generateWallet, encryptWallet, dencryptWallet, signMessage, getMessageSigner, isMessageSigner, signTransaction } from "../src/wallet_manager/wallet";
+import { generateWallet, encryptWallet, decryptWallet, signMessage, getMessageSigner, isMessageSigner, signTransaction } from "../index";
 import { errorMsg } from "../src/utils/constants";
 
 describe("Walletmanager", () => {
@@ -61,7 +61,7 @@ describe("Walletmanager", () => {
     });
   });
 
-  describe("dencryptWallet", () => {
+  describe("decryptWallet", () => {
     let walletEncrypted: string;
 
     before("generate new wallet", async () => {
@@ -69,33 +69,33 @@ describe("Walletmanager", () => {
     });
 
     it("should fail if encrypted wallet string is empty", async () => {
-      await expect(dencryptWallet("", encryptionPassphrase)).to.be.rejectedWith(errorMsg.emptyEncryptedWallet);
+      await expect(decryptWallet("", encryptionPassphrase)).to.be.rejectedWith(errorMsg.emptyEncryptedWallet);
     });
 
     it("should fail if passphrase used for encryption is empty", async () => {
-      await expect(dencryptWallet(walletEncrypted, "")).to.be.rejectedWith(errorMsg.emptyPassphrase);
+      await expect(decryptWallet(walletEncrypted, "")).to.be.rejectedWith(errorMsg.emptyPassphrase);
     });
 
     it("should fail if encrypted wallet is invalid, if wrong letters", async () => {
       const corruptedWalletEncrypted = walletEncrypted.replace("a", "_").replace("v", "!").replace("e", "@").replace("i", "#").replace("s", "$");
 
-      await expect(dencryptWallet(corruptedWalletEncrypted, encryptionPassphrase)).to.be.rejectedWith(errorMsg.failedToDecryptPrefix);
+      await expect(decryptWallet(corruptedWalletEncrypted, encryptionPassphrase)).to.be.rejectedWith(errorMsg.failedToDecryptPrefix);
     });
 
     it("should fail if encrypted wallet is invalid, if corrupted \"mnemonic...\" field", async () => {
       const corruptedWalletEncrypted = walletEncrypted.replace("mnemonic", "");
 
-      await expect(dencryptWallet(corruptedWalletEncrypted, encryptionPassphrase)).to.be.rejectedWith(errorMsg.failedToDecryptPrefix);
+      await expect(decryptWallet(corruptedWalletEncrypted, encryptionPassphrase)).to.be.rejectedWith(errorMsg.failedToDecryptPrefix);
     });
 
     it("should fail if passphrase used for encryption is invalid", async () => {
       const wrongPassphrase = encryptionPassphrase + "Wrong";
 
-      await expect(dencryptWallet(walletEncrypted, wrongPassphrase)).to.be.rejectedWith(errorMsg.failedToDecryptPrefix);
+      await expect(decryptWallet(walletEncrypted, wrongPassphrase)).to.be.rejectedWith(errorMsg.failedToDecryptPrefix);
     });
 
     it("should return correct wallet", async () => {
-      const walletDecrypted = await dencryptWallet(walletEncrypted, encryptionPassphrase);
+      const walletDecrypted = await decryptWallet(walletEncrypted, encryptionPassphrase);
 
       expect(walletDecrypted).to.deep.equal(wallet);
     });
