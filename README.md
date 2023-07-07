@@ -14,3 +14,32 @@ This service will provide the following features:
 * Familiar web2 user experience: Users will have a familiar web2 user experience, even though they are interacting with the blockchain.
 
 This service will make it easier and more convenient for users to interact with the blockchain. This will help to onboard more users to the blockchain and accelerate the adoption of web3.
+
+## How to use
+### 1. Installation
+```npm i web2-and-three-quarters```
+
+### 2. Usage
+### require
+```
+const { Web2AndThreeQuarters } = require("web2-and-three-quarters");
+
+async function yourFunction() {
+  const web2AndThreeQuarters = new Web2AndThreeQuarters();
+  const generatedWallet = await web2AndThreeQuarters.generateWallet();
+
+  console.log(generatedWallet);
+}
+```
+
+### import
+```
+import { Web2AndThreeQuarters } from "web2-and-three-quarters";
+
+async function yourFunction() {
+  const web2AndThreeQuarters = new Web2AndThreeQuarters();
+  const generatedWallet = await web2AndThreeQuarters.generateWallet();
+
+  console.log(generatedWallet);
+}
+```
