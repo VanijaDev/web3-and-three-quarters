@@ -1,4 +1,4 @@
-# web2 and three quarters - idea description
+# Web2 And Three Quarters
 
 ## Problem
 Not many Internet users are web3-savvy. The more power you have, the more responsibility you also bear. As a blockchain user, you are responsible for account creation, storing your private key (mnemonic) securely, and using it to sign and broadcast transactions.
