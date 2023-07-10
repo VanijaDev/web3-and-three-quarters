@@ -1,1 +1,1 @@
-export { Web2AndThreeQuarters } from "./wallet_manager/wallet";
+export { Web3AndThreeQuarters } from "./wallet_manager/wallet";

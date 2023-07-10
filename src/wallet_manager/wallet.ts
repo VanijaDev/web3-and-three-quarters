@@ -3,7 +3,7 @@ import { isPassphraseValid } from '../utils/utils';
 import { errorMsg } from '../utils/constants';
 
 
-class Web2AndThreeQuarters {
+class Web3AndThreeQuarters {
   /**
    * @description Generates a wallet instance.
    * @returns { HDNodeWallet } Wallet Instance.
@@ -115,4 +115,4 @@ class Web2AndThreeQuarters {
   }
 }
 
-export { Web2AndThreeQuarters }
+export { Web3AndThreeQuarters }

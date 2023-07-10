@@ -1,5 +1,5 @@
 {
-  "name": "web2-and-three-quarters",
+  "name": "web3-and-three-quarters",
   "version": "1.0.0",
   "description": "web3 interaction in web2 manner.",
   "main": "dist/cjs/index.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/VanijaDev/web2-and-three-quarters.git"
+    "url": "git+https://github.com/VanijaDev/web3-and-three-quarters.git"
   },
   "keywords": [
     "web3",
@@ -27,9 +27,9 @@
   "author": "Ivan Solomichev",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/VanijaDev/web2-and-three-quarters/issues"
+    "url": "https://github.com/VanijaDev/web3-and-three-quarters/issues"
   },
-  "homepage": "https://github.com/VanijaDev/web2-and-three-quarters#readme",
+  "homepage": "https://github.com/VanijaDev/web3-and-three-quarters#readme",
   "dependencies": {
     "ethers": "6.6.0"
   },
