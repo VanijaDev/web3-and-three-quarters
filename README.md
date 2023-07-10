@@ -1,4 +1,4 @@
-# Web2 And Three Quarters
+# Web3 And Three Quarters
 
 ## Problem
 Not many Internet users are web3-savvy. The more power you have, the more responsibility you also bear. As a blockchain user, you are responsible for account creation, storing your private key (mnemonic) securely, and using it to sign and broadcast transactions.
@@ -17,16 +17,16 @@ This service will make it easier and more convenient for users to interact with 
 
 ## How to use
 ### 1. Installation
-```npm i web2-and-three-quarters```
+```npm i web3-and-three-quarters```
 
 ### 2. Usage
 ### require
 ```
-const { Web2AndThreeQuarters } = require("web2-and-three-quarters");
+const { Web3AndThreeQuarters } = require("web3-and-three-quarters");
 
 async function yourFunction() {
-  const web2AndThreeQuarters = new Web2AndThreeQuarters();
-  const generatedWallet = await web2AndThreeQuarters.generateWallet();
+  const web3AndThreeQuarters = new Web3AndThreeQuarters();
+  const generatedWallet = await web3AndThreeQuarters.generateWallet();
 
   console.log(generatedWallet);
 }
@@ -34,11 +34,11 @@ async function yourFunction() {
 
 ### import
 ```
-import { Web2AndThreeQuarters } from "web2-and-three-quarters";
+import { Web3AndThreeQuarters } from "web3-and-three-quarters";
 
 async function yourFunction() {
-  const web2AndThreeQuarters = new Web2AndThreeQuarters();
-  const generatedWallet = await web2AndThreeQuarters.generateWallet();
+  const web3AndThreeQuarters = new Web3AndThreeQuarters();
+  const generatedWallet = await web3AndThreeQuarters.generateWallet();
 
   console.log(generatedWallet);
 }
