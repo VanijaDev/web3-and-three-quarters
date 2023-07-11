@@ -1,4 +1,8 @@
 # Web3 And Three Quarters
+[![Build](https://github.com/VanijaDev/web3-and-three-quarters/actions/workflows/build.yaml/badge.svg)](https://github.com/VanijaDev/web3-and-three-quarters/actions/workflows/build.yaml)
+[![Coverage Status](https://coveralls.io/repos/github/VanijaDev/web3-and-three-quarters/badge.svg?branch=main)](https://coveralls.io/github/VanijaDev/web3-and-three-quarters?branch=main)
+[![npm version](https://img.shields.io/npm/v/podil.svg?style=flat)](https://www.npmjs.com/package/podil)
+[![install size](https://packagephobia.com/badge?p=podil)](https://www.npmjs.com/package/podil)
 
 ## Problem
 Not many Internet users are web3-savvy. The more power you have, the more responsibility you also bear. As a blockchain user, you are responsible for account creation, storing your private key (mnemonic) securely, and using it to sign and broadcast transactions.
