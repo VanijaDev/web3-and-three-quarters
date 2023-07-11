@@ -80,19 +80,19 @@ describe("Walletmanager", () => {
     it("should fail if encrypted wallet is invalid, if wrong letters", async () => {
       const corruptedWalletEncrypted = walletEncrypted.replace("a", "_").replace("v", "!").replace("e", "@").replace("i", "#").replace("s", "$");
 
-      await expect(web3AndThreeQuarters.decryptWallet(corruptedWalletEncrypted, encryptionPassphrase)).to.be.rejectedWith(errorMsg.failedToDecryptPrefix);
+      await expect(web3AndThreeQuarters.decryptWallet(corruptedWalletEncrypted, encryptionPassphrase)).to.be.rejectedWith(errorMsg.failedToDecrypt);
     });
 
     it("should fail if encrypted wallet is invalid, if corrupted \"mnemonic...\" field", async () => {
       const corruptedWalletEncrypted = walletEncrypted.replace("mnemonic", "");
 
-      await expect(web3AndThreeQuarters.decryptWallet(corruptedWalletEncrypted, encryptionPassphrase)).to.be.rejectedWith(errorMsg.failedToDecryptPrefix);
+      await expect(web3AndThreeQuarters.decryptWallet(corruptedWalletEncrypted, encryptionPassphrase)).to.be.rejectedWith(errorMsg.failedToDecrypt);
     });
 
     it("should fail if passphrase used for encryption is invalid", async () => {
       const wrongPassphrase = encryptionPassphrase + "Wrong";
 
-      await expect(web3AndThreeQuarters.decryptWallet(walletEncrypted, wrongPassphrase)).to.be.rejectedWith(errorMsg.failedToDecryptPrefix);
+      await expect(web3AndThreeQuarters.decryptWallet(walletEncrypted, wrongPassphrase)).to.be.rejectedWith(errorMsg.failedToDecrypt);
     });
 
     it("should return correct wallet", async () => {
@@ -113,7 +113,7 @@ describe("Walletmanager", () => {
         address: '0x96802b8Bfb20D009122631A0DF57F7A61043fA76',
         publicKey: '0x024e0fa0366a9b6028664a90f938e3f181fdb5eb619882a788988cf062b827c6fa'
       };
-      await expect(web3AndThreeQuarters.signMessage(corruptedWallet as HDNodeWallet, "Hello World")).to.be.rejectedWith(errorMsg.failedToSignMessagePrefix);
+      await expect(web3AndThreeQuarters.signMessage(corruptedWallet as HDNodeWallet, "Hello World")).to.be.rejectedWith(errorMsg.failedToSignMessage);
     });
 
     it("should return a signature", async () => {
@@ -134,7 +134,7 @@ describe("Walletmanager", () => {
     });
   });
 
-  describe("getMessageSigner", async () => {
+  describe("getMessageSigner", () => {
     const message = "Hello World";
     let signature: string;
     let signer: string;
@@ -160,7 +160,7 @@ describe("Walletmanager", () => {
     });
   });
 
-  describe("isMessageSigner", async () => {
+  describe("isMessageSigner", () => {
     const message = "Hello World";
     let signature: string;
     let signer: string;
@@ -196,7 +196,7 @@ describe("Walletmanager", () => {
     });
   });
 
-  describe("signTransaction", async () => {
+  describe("signTransaction", () => {
     let tx: TransactionRequest;
 
     before("generate new wallet and tx", async () => {

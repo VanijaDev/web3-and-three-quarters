@@ -45,8 +45,9 @@ class Web3AndThreeQuarters {
 
     try {
       return await Wallet.fromEncryptedJson(_encryptedWallet, _passphrase);
+    // type-coverage:ignore-next-line
     } catch (error) {
-      throw new Error(errorMsg.failedToDecryptPrefix + error);
+      throw new Error(errorMsg.failedToDecrypt);
     }
   }
 
@@ -63,8 +64,9 @@ class Web3AndThreeQuarters {
 
     try {
       return await _wallet.signMessage(_message);
+    // type-coverage:ignore-next-line
     } catch (error) {
-      throw new Error(errorMsg.failedToSignMessagePrefix + error);
+      throw new Error(errorMsg.failedToSignMessage);
     }
   }
 
