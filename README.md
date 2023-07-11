@@ -14,7 +14,7 @@ Using a private key for signing and broadcasting transactions can be cumbersome 
 This service (library) proposes a solution that makes the user experience of web3 interaction very similar to web2, where users may know nothing about web3 that is used under the hood. Secure storage of private keys (mnemonics) and seamless interaction with the blockchain are essential for this idea.
 
 This service will provide the following features:
-* Secure private key storage: Users can generate and store their private keys securely on device locally.
+* New wallet generation: Users can generate a wallet compatible with [BIP32 standart](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki).
 * Seamless blockchain interaction: Users can interact with the blockchain without having to switch between apps or interactions with pop ups to sign a transaction.
 * Familiar web2 user experience: Users will have a familiar web2 user experience, even though they are interacting with the blockchain.
 

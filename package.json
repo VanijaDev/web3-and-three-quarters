@@ -1,0 +1,50 @@
+{
+  "name": "web3-and-three-quarters",
+  "version": "1.0.0",
+  "description": "web3 interaction in web2 manner.",
+  "main": "dist/cjs/index.js",
+  "scripts": {
+    "build": "rm -rf dist/ && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
+    "test": "mocha --timeout 30000 -r ts-node/register 'test/**/*.test.ts' && npm run ts-coverage",
+    "ts-coverage": "typescript-coverage-report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VanijaDev/web3-and-three-quarters.git"
+  },
+  "keywords": [
+    "web3",
+    "npm",
+    "library",
+    "crypto",
+    "wallet",
+    "non-custodial",
+    "self-custody",
+    "blockchain",
+    "interaction"
+  ],
+  "author": "Ivan Solomichev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VanijaDev/web3-and-three-quarters/issues"
+  },
+  "homepage": "https://github.com/VanijaDev/web3-and-three-quarters#readme",
+  "typeCoverage": {
+    "atLeast": 95
+  },
+  "dependencies": {
+    "ethers": "6.6.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.5",
+    "@types/mocha": "^10.0.1",
+    "chai": "^4.3.7",
+    "chai-as-promised": "7.1.1",
+    "mocha": "^10.2.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6",
+    "typescript-coverage-report": "^0.8.0"
+  }
+}
