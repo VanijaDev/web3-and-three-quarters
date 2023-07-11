@@ -1,8 +1,9 @@
 # Web3 And Three Quarters
 [![Build](https://github.com/VanijaDev/web3-and-three-quarters/actions/workflows/build.yaml/badge.svg)](https://github.com/VanijaDev/web3-and-three-quarters/actions/workflows/build.yaml)
 [![type-coverage](https://img.shields.io/badge/dynamic/json.svg?label=type-coverage&prefix=%E2%89%A5&suffix=%&query=$.typeCoverage.atLeast&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fplantain-00%2Ftype-coverage%2Fmaster%2Fpackage.json)](https://github.com/VanijaDev/web3-and-three-quarters)
-[![npm version](https://img.shields.io/npm/v/podil.svg?style=flat)](https://www.npmjs.com/package/podil)
-[![install size](https://packagephobia.com/badge?p=podil)](https://www.npmjs.com/package/podil)
+[![npm version](https://img.shields.io/npm/v/web3-and-three-quarters.svg?style=flat)](https://www.npmjs.com/package/web3-and-three-quarters)
+[![install size](https://packagephobia.com/badge?p=web3-and-three-quarters)](https://www.npmjs.com/package/web3-and-three-quarters)
+[![Downloads](https://img.shields.io/npm/dm/web3-and-three-quarters.svg)](https://www.npmjs.com/package/web3-and-three-quarters)
 
 ## Problem
 Not many Internet users are web3-savvy. The more power you have, the more responsibility you also bear. As a blockchain user, you are responsible for account creation, storing your private key (mnemonic) securely, and using it to sign and broadcast transactions.
