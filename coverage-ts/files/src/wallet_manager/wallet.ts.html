@@ -1,0 +1,137 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>wallet.ts</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="../../../assets/source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="../../../assets/source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="../../../index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">src/wallet_manager/wallet.ts</td><td class="">100.00%</td><td class="">95%</td><td class="">116</td><td class="">116</td><td class="">0</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import { Wallet, type HDNodeWallet, type TransactionRequest } from &#x27;ethers&#x27;;
+import { isPassphraseValid } from &#x27;../utils/utils&#x27;;
+import { errorMsg } from &#x27;../utils/constants&#x27;;
+
+
+class Web3AndThreeQuarters {
+  /**
+   * @description Generates a wallet instance.
+   * @returns { HDNodeWallet } Wallet Instance.
+   */
+  public async generateWallet(): Promise&lt;HDNodeWallet&gt; {
+    const ethers = await import(&#x27;ethers&#x27;);
+    
+    return ethers.Wallet.createRandom();
+  }
+
+  /**
+   * @description Encrypts wallet with passphrase.
+   * @param { HDNodeWallet } _wallet Wallet to be encrypted.
+   * @param { string } _passphrase Passphrase to be used for encryption.
+   * @returns { Promise&lt;string&gt; } Encrypted wallet object.
+   */
+  public async encryptWallet(_wallet: HDNodeWallet, _passphrase: string): Promise&lt;string&gt; {
+    if (!isPassphraseValid(_passphrase)) {
+      throw new Error(errorMsg.invalidPassphraseDuringWalletGeneration);
+    }
+
+    return await _wallet.encrypt(_passphrase);
+  }
+
+  /**
+   * @description Dencrypts encrypted wallet.
+   * @param { string } _encryptedWallet Encrypted wallet object.
+   * @param { string } _passphrase Passphrase used for encryption.
+   * @returns { Promise&lt;HDNodeWallet&gt; } Decrypted wallet.
+   */
+  public async decryptWallet(_encryptedWallet: string, _passphrase: string): Promise&lt;Wallet | HDNodeWallet&gt; {
+    if (_encryptedWallet.length == 0) {
+      throw new Error(errorMsg.emptyEncryptedWallet);
+    }
+
+    if (_passphrase.length == 0) {
+      throw new Error(errorMsg.emptyPassphrase);
+    }
+
+    try {
+      return await Wallet.fromEncryptedJson(_encryptedWallet, _passphrase);
+    // type-coverage:ignore-next-line
+    } catch (error) {
+      throw new Error(errorMsg.failedToDecrypt);
+    }
+  }
+
+  /**
+   * @description Signs a message.
+   * @param { HDNodeWallet } _wallet Wallet to be used for signing.
+   * @param { string } _message Message to be signed.
+   * @returns { Promis&lt;string&gt; } Signature.
+   */
+  public async signMessage(_wallet: HDNodeWallet, _message: string): Promise&lt;string&gt; {
+    if (_message.length == 0) {
+      throw new Error(errorMsg.emptyMessageToSign);
+    }
+
+    try {
+      return await _wallet.signMessage(_message);
+    // type-coverage:ignore-next-line
+    } catch (error) {
+      throw new Error(errorMsg.failedToSignMessage);
+    }
+  }
+
+  /**
+   * @description Gets message signer.
+   * @param { string } _message Message that was signed.
+   * @param { string } _signature Signature as a result of _message signature.
+   * @returns { Promise&lt;string&gt; } Recovered signer address.
+   */
+  public async getMessageSigner(_message: string, _signature: string): Promise&lt;string&gt; {
+    if (_message.length == 0) {
+      throw new Error(errorMsg.emptyMessageInGetMessageSigner);
+    }
+    
+    if (_signature.length == 0) {
+      throw new Error(errorMsg.emptySignatureInGetMessageSigner);
+    }
+
+    const ethers = await import(&#x27;ethers&#x27;);
+
+    return await ethers.verifyMessage(_message, _signature);
+  }
+
+  /**
+   * @description Checks whether provided address is a signer of provided message.
+   * @param { string } _message Massage string.
+   * @param { string } _signature Signature string.
+   * @param { string } _signer Signer address to be verified.
+   * @returns { Promise&lt;boolean&gt; } Whether provided signer is the signer of the message.
+   */
+  public async isMessageSigner(_message: string, _signature: string, _signer: string): Promise&lt;boolean&gt; {
+    if (_signer.length == 0) {
+      throw new Error(errorMsg.emptySignerInIsMessageSigner);
+    }
+
+    const actualSigner = await this.getMessageSigner(_message, _signature);
+    return actualSigner.localeCompare(_signer, undefined, { sensitivity: &#x27;accent&#x27; }) == 0;
+  }
+
+  /**
+   * @description Signs the provided transaction.
+   * @param { HDNodeWallet } _wallet Wallet to be used for signing.
+   * @param { TransactionRequest } _tx Transaction to be signed.
+   * @returns { Promise&lt;stirng&gt; } Signed transaction.
+   */
+  public async signTransaction(_wallet: HDNodeWallet, _tx: TransactionRequest): Promise&lt;string&gt; {
+    return await _wallet.signTransaction(_tx);
+  }
+}
+
+export { Web3AndThreeQuarters }</textarea><pre id="annotations" style="display:none">[]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Tue, 11 Jul 2023 23:19:39 GMT</p>
+    </body>
+  </html>
+  
