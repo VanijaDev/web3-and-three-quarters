@@ -2,21 +2,21 @@ import { HDNodeWallet, TransactionRequest, ethers } from "ethers";
 import { Web3AndThreeQuarters } from "../src/index";
 import { errorMsg } from "../src/utils/constants";
 
+const chai = require('chai');
+const expect = chai.expect;
+chai.use(require('chai-as-promised'));
+
 describe("Walletmanager", () => {
-  const chai = require('chai');
-  const expect = chai.expect;
-  chai.use(require('chai-as-promised'));
-  
   const encryptionPassphrase = "HelloWorldFrom_me_1987@";
 
   let wallet: HDNodeWallet;
   const web3AndThreeQuarters = new Web3AndThreeQuarters();
 
-  before("generate new wallet", async () => {
+  beforeAll(async () => {
     wallet = await new Web3AndThreeQuarters().generateWallet();
     // console.log("In test wallet: ", wallet);
   });
-  
+
   describe("generateWallet", () => {
     it("should generate correct address", async () => {
       expect(wallet.address).satisfy(addr => addr.startsWith('0x'), "wrong address prefix");
@@ -65,7 +65,7 @@ describe("Walletmanager", () => {
   describe("decryptWallet", () => {
     let walletEncrypted: string;
 
-    before("generate new wallet", async () => {
+    beforeAll(async () => {
       walletEncrypted = await web3AndThreeQuarters.encryptWallet(wallet, encryptionPassphrase);
     });
 
@@ -139,7 +139,7 @@ describe("Walletmanager", () => {
     let signature: string;
     let signer: string;
 
-    before("generate new wallet", async () => {
+    beforeAll(async () => {
       signature = await web3AndThreeQuarters.signMessage(wallet, message);
       signer = await wallet.getAddress();
     });
@@ -165,7 +165,7 @@ describe("Walletmanager", () => {
     let signature: string;
     let signer: string;
 
-    before("generate new wallet", async () => {
+    beforeAll(async () => {
       signature = await web3AndThreeQuarters.signMessage(wallet, message);
       signer = await wallet.getAddress();
     });
@@ -199,7 +199,7 @@ describe("Walletmanager", () => {
   describe("signTransaction", () => {
     let tx: TransactionRequest;
 
-    before("generate new wallet and tx", async () => {
+    beforeAll(async () => {
       tx = {
         to: "0xa238b6008Bc2FBd9E386A5d4784511980cE504Cd",
         value: ethers.parseEther("0.001"),
@@ -218,4 +218,5 @@ describe("Walletmanager", () => {
       expect(res).to.have.lengthOf.above(2, "wrong length");
     });
   });
+
 });
