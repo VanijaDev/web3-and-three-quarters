@@ -2,11 +2,6 @@ import { HDNodeWallet, TransactionRequest, ethers } from "ethers";
 import { Web3AndThreeQuarters } from "../src/index";
 import { errorMsg } from "../src/utils/constants";
 
-// import chai from 'chai'
-// import chaiAsPromised from 'chai-as-promised'
-// chai.use(chaiAsPromised)
-// const expect = chai.expect
-
 import chai, { expect } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 chai.use(chaiAsPromised);
