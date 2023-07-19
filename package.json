@@ -35,8 +35,8 @@
   "typeCoverage": {
     "atLeast": 95
   },
-  "dependencies": {
-    "ethers": "6.6.0"
+  "peerDependencies": {
+    "ethers": "^6.6.0"
   },
   "devDependencies": {
     "@types/chai": "^4.3.5",
