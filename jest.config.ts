@@ -22,7 +22,10 @@ const config: Config = {
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  // collectCoverageFrom: undefined,
+  collectCoverageFrom: [
+      "<rootDir>/packages/**/*.{tsx,ts}",
+      "!**/*.{js,d.ts}"
+    ],
 
   // The directory where Jest should output its coverage files
   coverageDirectory: "coverage",
@@ -37,10 +40,10 @@ const config: Config = {
 
   // A list of reporter names that Jest uses when writing coverage reports
   coverageReporters: [
-    "json-summary"
+    "json-summary",
+    "lcov"
   //   "json",
   //   "text",
-  //   "lcov",
   //   "clover"
   ],
 
