@@ -1,7 +1,7 @@
 # Web3 And Three Quarters
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build](https://github.com/VanijaDev/web3-and-three-quarters/actions/workflows/build.yml/badge.svg)](https://github.com/VanijaDev/web3-and-three-quarters/actions/workflows/build.yml)
-[![type-coverage](https://img.shields.io/badge/dynamic/json.svg?label=type-coverage&prefix=%E2%89%A5&suffix=%&query=$.typeCoverage.atLeast&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fplantain-00%2Ftype-coverage%2Fmaster%2Fpackage.json)](https://github.com/VanijaDev/web3-and-three-quarters)
+![Jest coverage](./badges/coverage-jest%20coverage.svg)
 [![npm version](https://img.shields.io/npm/v/web3-and-three-quarters.svg?style=flat)](https://www.npmjs.com/package/web3-and-three-quarters)
 [![install size](https://packagephobia.com/badge?p=web3-and-three-quarters)](https://www.npmjs.com/package/web3-and-three-quarters)
 [![Downloads](https://img.shields.io/npm/dm/web3-and-three-quarters.svg)](https://www.npmjs.com/package/web3-and-three-quarters)
