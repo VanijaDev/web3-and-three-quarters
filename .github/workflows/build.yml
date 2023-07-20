@@ -24,8 +24,10 @@ jobs:
         
       - name: Test
         run: npm run test-ci
-        
-      - name: Generating coverage badges
-        uses: jpb06/jest-badges-action@latest
+          
+      - name: Create Coverage Badges
+        uses: jaywcjlove/coverage-badges-cli@main
         with:
+          source: coverage/coverage-summary.json
+          output: coverage/badges.svg
           branches: main
