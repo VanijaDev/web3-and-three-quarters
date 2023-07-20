@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "test": "npx jest",
-    "test-ci": "jest --ci --coverage"
+    "test-ci": "jest --ci --coverage --no-commit=true"
   },
   "repository": {
     "type": "git",
