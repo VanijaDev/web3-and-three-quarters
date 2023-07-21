@@ -9,10 +9,11 @@
     "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
-    "test": "npx jest",
-    "test-ci": "jest --coverage && coverage-badges",
-    "coverage": "jest --coverage",
-    "make-badges": "coverage-badges"
+    "test": "npm run remove-coverage-data && npx jest",
+    "test-ci": "npm run remove-coverage-data && jest --coverage && coverage-badges",
+    "coverage": "npm run remove-coverage-data && jest --coverage",
+    "make-badges": "coverage-badges",
+    "remove-coverage-data":"rm -rf coverage/"
   },
   "repository": {
     "type": "git",
