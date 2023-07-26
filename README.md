@@ -29,107 +29,42 @@ You can think of **Web3 And Three Quarters** library as a crypto wallet that all
 ```
 import { Web3AndThreeQuarters } from "web3-and-three-quarters";
 
-/**
- * @description Generates new HDNodeWallet wallet.
- * @returns { HDNodeWallet } Wallet instance.
- */
-async function generateWallet() {
-  const web3AndThreeQuarters = new Web3AndThreeQuarters();
-  const generatedWallet = await web3AndThreeQuarters.generateWallet();
-
-  console.log('generated wallet: ', generatedWallet);
-}
+const wallet = await new Web3AndThreeQuarters().generateWallet();
 ```
 
 ### Encrypt wallet
 ```
 import { Web3AndThreeQuarters } from "web3-and-three-quarters";
 
-/**
- * @description Encrypts wallet.
- * @param { HDNodeWallet } _wallet Wallet instance to be encrypted.
- * @param { string } Passphrase to be used for the encryption.
- * @returns { string } Encrypted wallet.
- */
-async function encryptWallet(_wallet, _passphrase) {
-  const web3AndThreeQuarters = new Web3AndThreeQuarters();
-  const encryptedWallet = await web3AndThreeQuarters.encryptWallet(_wallet, _passphrase);
-
-  console.log('encrypted wallet: ', encryptedWallet);
-}
+const encryptedWallet = await new Web3AndThreeQuarters().encryptWallet(wallet, 'PassphraseUsedFor_encryption_2023@');
 ```
 
 ### Decrypt wallet
 ```
 import { Web3AndThreeQuarters } from "web3-and-three-quarters";
 
-/**
- * @description Decrypts wallet.
- * @param { string } _encryptedWallet Encrypted wallet.
- * @param { string } _passphrase Passphrase used for encryption of the wallet.
- * @returns { HDNodeWallet } HDNodeWallet wallet instance.
- */
-async function decryptWallet(_encryptedWallet, _passphrase) {
-  const web3AndThreeQuarters = new Web3AndThreeQuarters();
-  const decryptedWallet = await web3AndThreeQuarters.decryptWallet(_encryptedWallet, _passphrase);
-
-  console.log('decrypted wallet: ', decryptedWallet);
-}
+const decryptedWallet = await new Web3AndThreeQuarters().decryptWallet(encryptedWallet, 'PassphraseUsedFor_encryption_2023@');
 ```
 
 ### Sign message
 ```
 import { Web3AndThreeQuarters } from "web3-and-three-quarters";
 
-/**
- * @description Signs a message.
- * @param { HDNodeWallet } _wallet Wallet instance.
- * @param { string } _msg Message to be signed.
- * @returns {string} Signed message.
- */
-async function signMessage(_wallet, _msg) {
-  const web3AndThreeQuarters = new Web3AndThreeQuarters();
-  const signature = await web3AndThreeQuarters.signMessage(_wallet, _msg);
-
-  console.log('signed message: ', signature);
-}
+const signature = await new Web3AndThreeQuarters().signMessage(wallet, 'Hello Web3 World');
 ```
 
 ### Get message signer
 ```
 import { Web3AndThreeQuarters } from "web3-and-three-quarters";
 
-/**
- * @description Gets message signer.
- * @param { string } _message Signed message.
- * @param { string } _signature Signature of the signed message.
- * @returns { string } Address of the message signer.
- */
-async function getMessageSigner(_message, _signature) {
-  const web3AndThreeQuarters = new Web3AndThreeQuarters();
-  const recoveredSigner = await web3AndThreeQuarters.getMessageSigner(_message, _signature);
-
-  console.log('message signer: ', recoveredSigner);
-}
+const recoveredSigner = await new Web3AndThreeQuarters().getMessageSigner('Hello Web3 World', signature);
 ```
 
-### Check whether is message signer
+### Check whether address is message signer
 ```
 import { Web3AndThreeQuarters } from "web3-and-three-quarters";
 
-/**
- * @description Checks whether address is message signer.
- * @param { string } _message Signed message.
- * @param { string } _signature Signature of the signed message.
- * @param { string } _signer Address to be verified as a signer.
- * @returns { boolean } Whether signer or not.
- */
-async function isMessageSigner(_message, _signature, _signer) {
-  const web3AndThreeQuarters = new Web3AndThreeQuarters();
-  const isSigner = await web3AndThreeQuarters.isMessageSigner(_message, _signature, _signer);
-
-  console.log('is message signer: ', isSigner);
-}
+const isSigner = await new Web3AndThreeQuarters().isMessageSigner('Hello Web3 World', signature, '0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B');  // use correct address to check
 ```
 
 ### Sign transaction
@@ -137,32 +72,21 @@ async function isMessageSigner(_message, _signature, _signer) {
 import { Web3AndThreeQuarters } from "web3-and-three-quarters";
 
 const tx = {
-  to: "0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B",
-  value: ethers.parseEther("0.001"),
-  gasLimit: "21000",
-  maxPriorityFeePerGas: ethers.parseUnits("5", "gwei"),
-  maxFeePerGas: ethers.parseUnits("20", "gwei"),
+  to: '0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B',
+  value: ethers.parseEther('0.001'),
+  gasLimit: '21000',
+  maxPriorityFeePerGas: ethers.parseUnits('5', 'gwei'),
+  maxFeePerGas: ethers.parseUnits('20', 'gwei'),
   nonce: 0, // use correct nonce for your account
   type: 2,
   chainId: 5, // Corresponds to ETH_GOERLI
 };
 
-/**
- * @description Signs a transaction.
- * @param { HDNodeWallet } _wallet Wallet instance.
- * @param { TransactionRequest} _tx Transaction to be signed.
- * @returns { string } Signed transaction.
- */
-async function signTransaction(_wallet, _tx ) {
-  const web3AndThreeQuarters = new Web3AndThreeQuarters();
-  const res = await web3AndThreeQuarters.signTransaction(_wallet, _tx);
-
-  console.log('is message signer: ', isSigner);
-}
+const res = await web3AndThreeQuarters.signTransaction(wallet, tx);
 ```
 
 
-## 💡 More information
+## 💡 Motivation for developing
 Not many Internet users are web3-savvy. The more power you have, the more responsibility you also bear. As a blockchain user, you are responsible for wallet creation, storing your private wallet data (key, mnemonic) securely, and using it to sign and broadcast transactions.
 
 Using a private key for signing and broadcasting transactions can be cumbersome and inconvenient in some cases. It requires additional steps, such as showing a pop-up for the users to confirm their intent of using a private key. The mobile experience is even worse, with users having to switch between apps to sign and broadcast transactions. This can make it difficult and frustrating to interact with blockchain frequently, such as when playing a games that requires frequent transaction broadcasting to blockchain.
