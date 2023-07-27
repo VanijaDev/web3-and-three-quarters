@@ -1,6 +1,6 @@
 {
   "name": "web3-and-three-quarters",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "web3 interaction in web2 manner.",
   "main": "dist/cjs/index.js",
   "scripts": {
