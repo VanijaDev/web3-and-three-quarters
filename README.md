@@ -7,7 +7,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This is the library for users who want to interact with blockchain-based applications without having to worry about the underlying technology. It allows secure managing private data (private keys, mnemonic, etc) on behalf of users, while they focus on [DApp](https://ethereum.org/en/dapps/#what-are-dapps) interaction in web2 manner. Using **Web3 And Three Quarters** library users can:
-- geneate a [BIP32 standart](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) wallet;
+- generate a [BIP32 standard](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) wallet;
 - securely store generated wallet data locally on device used while generation;
 - create & sign transactions with [private key](https://ethereum.org/en/developers/docs/accounts/#externally-owned-accounts-and-key-pairs), broadcast them to blockchain;
 - interact with [DApps](https://ethereum.org/en/dapps/#what-are-dapps) when all web3-related processes (e.g., transaction creation, signing, verification & broadcasting to the blockchain) are performed implicitly;
